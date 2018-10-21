@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 
-const schema = require('./shema/schema');
+const schema = require('./schema/schema');
 
 const app = express();
 mongoose.connect(
