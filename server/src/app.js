@@ -5,11 +5,19 @@ const mongoose = require('mongoose');
 
 const schema = require('./schema/schema');
 
+require('dotenv').config();
+
 const app = express();
+
+const ENDPOINT = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${
+  process.env.MONGODB_HOST
+}`;
+
 mongoose.connect(
-  'mongodb://admin:test123@ds137913.mlab.com:37913/graphql-lesson',
+  ENDPOINT,
   { useNewUrlParser: true },
 );
+
 mongoose.connection.once('open', () => {
   console.log('Connected to DB');
 });
