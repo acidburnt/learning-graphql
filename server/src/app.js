@@ -2,12 +2,16 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const schema = require('./schema/schema');
 
 require('dotenv').config();
 
 const app = express();
+
+// allow cross-origin requests
+app.use(cors());
 
 const ENDPOINT = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${
   process.env.MONGODB_HOST
