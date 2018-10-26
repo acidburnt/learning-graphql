@@ -1,10 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
+import { shape, func } from 'prop-types';
+import { graphql, compose } from 'react-apollo';
 
-import { getAuthorsQuery } from '../queries/queries';
+import { getAuthorsQuery, addBookMutation } from '../queries/queries';
 
 class AddBookUnwrapped extends React.Component {
+  static propTypes = {
+    getAuthorsQuery: shape({}).isRequired,
+    addBookMutation: func.isRequired.isRequired,
+  };
+
   state = {
     name: '',
     genre: '',
@@ -13,14 +18,21 @@ class AddBookUnwrapped extends React.Component {
 
   submitForm = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    const { name, genre, authorId } = this.state;
+    this.props.addBookMutation({
+      variables: {
+        name,
+        genre,
+        authorId,
+      },
+    });
   };
 
   setStateForField = field => e => this.setState({ [field]: e.target.value });
 
   render() {
     const {
-      data: { authors, loading },
+      getAuthorsQuery: { authors, loading },
     } = this.props;
     return (
       <form id="add-book" onSubmit={this.submitForm}>
@@ -40,7 +52,11 @@ class AddBookUnwrapped extends React.Component {
           <label>
             Author:
             <select id="select" onChange={this.setStateForField('authorId')}>
-              {loading ? <option>Loading authors...</option> : <option>Select author</option>}
+              {loading ? (
+                <option disabled>Loading authors...</option>
+              ) : (
+                <option>Select author</option>
+              )}
               {!loading
                 && authors.map(author => (
                   <option key={author.id} value={author.id}>
@@ -56,8 +72,7 @@ class AddBookUnwrapped extends React.Component {
   }
 }
 
-AddBookUnwrapped.propTypes = {
-  data: PropTypes.shape({}).isRequired,
-};
-
-export const AddBook = graphql(getAuthorsQuery)(AddBookUnwrapped);
+export const AddBook = compose(
+  graphql(getAuthorsQuery, { name: 'getAuthorsQuery' }),
+  graphql(addBookMutation, { name: 'addBookMutation' }),
+)(AddBookUnwrapped);
