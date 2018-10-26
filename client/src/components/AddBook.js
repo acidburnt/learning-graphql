@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, func } from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 
-import { getAuthorsQuery, addBookMutation } from '../queries/queries';
+import { getAuthorsQuery, addBookMutation, getBooksQuery } from '../queries/queries';
 
 class AddBookUnwrapped extends React.Component {
   static propTypes = {
@@ -25,6 +25,7 @@ class AddBookUnwrapped extends React.Component {
         genre,
         authorId,
       },
+      refetchQueries: [{ query: getBooksQuery }],
     });
   };
 
