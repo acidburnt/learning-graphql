@@ -1,19 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
 
-const getBooksQuery = gql`
-  {
-    books {
-      name
-      author {
-        name
-      }
-      id
-    }
-  }
-`;
+import { getBooksQuery } from '../queries/queries';
 
 const BookListUnwrapped = ({ data }) => {
   const { books, loading } = data;
