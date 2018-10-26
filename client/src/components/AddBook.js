@@ -29,7 +29,7 @@ const AddBookUnwrapped = ({ data }) => {
         </label>
       </div>
       <div className="field">
-        <label htmlFor="select">
+        <label>
           Author:
           <select id="select">
             {loading ? <option>Loading authors...</option> : <option>Select author</option>}
