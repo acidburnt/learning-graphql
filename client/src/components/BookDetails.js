@@ -6,7 +6,6 @@ import { getBookQuery } from '../queries/queries';
 
 const BookDetailsUnwrapped = (props) => {
   const { book } = props.data;
-  console.log(props);
   return book ? (
     <div id="book-details">
       <h2>{book.name}</h2>
