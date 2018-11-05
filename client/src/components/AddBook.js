@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { shape, func } from 'prop-types';
 import { graphql, compose } from 'react-apollo';
@@ -7,7 +9,7 @@ import { getAuthorsQuery, addBookMutation, getBooksQuery } from '../queries/quer
 class AddBookUnwrapped extends React.Component {
   static propTypes = {
     getAuthorsQuery: shape({}).isRequired,
-    addBookMutation: func.isRequired.isRequired,
+    addBookMutation: func.isRequired,
   };
 
   state = {
@@ -38,13 +40,13 @@ class AddBookUnwrapped extends React.Component {
     return (
       <form id="add-book" onSubmit={this.submitForm}>
         <div className="field">
-          <label htmlFor>
+          <label>
             Book name:
             <input type="text" onChange={this.setStateForField('name')} />
           </label>
         </div>
         <div className="field">
-          <label htmlFor>
+          <label>
             Genre:
             <input type="text" onChange={this.setStateForField('genre')} />
           </label>

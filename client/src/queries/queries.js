@@ -12,7 +12,7 @@ export const getBooksQuery = gql`
   }
 `;
 
-export const getBookQUery = gql`
+export const getBookQuery = gql`
   query($id: ID) {
     book(id: $id) {
       id
